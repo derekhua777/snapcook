@@ -1,11 +1,16 @@
-import matplotlib.pyplot as plt
-import os
 from PIL import Image
 import cv2
 
 import tensorflow as tf
 import numpy as np
+
 from googlesearch import search
+import google.generativeai as palm
+
+palm.configure(api_key='YOUR_API_KEY_HERE')
+models = [m for m in palm.list_models() if 'generateText' in m.supported_generation_methods]
+palm_model = models[0].name
+
 
 NUM_CLASSES = 15
 
@@ -26,7 +31,7 @@ classes = ['Capsicum',
  'Tomato',
  'Carrot']
 
-model = tf.keras.models.load_model('models/resnet50/')
+model = tf.keras.models.load_model('models/resnet50')
 
 def predict(img):
     img = cv2.resize(img, (224, 224))
@@ -50,15 +55,21 @@ if __name__ == '__main__':
         cv2.imshow("preview", frame)
         rval, frame = vc.read()
         key = cv2.waitKey(20)
-        if key == 32: # exit on ESC
+        if key == 32: # SPACE
             img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            ingredients += predict(img) + " "
-        if key == 27:
-            links = search(ingredients + "recipe", num=5, stop=5, pause=2)
-            print("Here are the 5 top recipes with your ingredients")
+            ingredients += predict(img) + ", "
+        if key == 27: # ESCAPE
+            #links = search(ingredients + "recipe", num=5, stop=5, pause=2)
+            print("Here's a recipe with " + ingredients[:-2])
             print("----------")
-            for link in links:
-                print(link)
+            completion = palm.generate_text(
+                model=palm_model,
+                prompt="Give me a recipe with these ingredients:" + ingredients[:-2] + ". Also tell me the name of the dish.",
+                temperature=0,
+                # The maximum length of the response
+                max_output_tokens=1200,
+            )
+            print(completion.result)
             print("----------")
 
     vc.release()
