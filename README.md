@@ -7,9 +7,9 @@ SnapCook automatically generates a recipe using images you take of your ingredie
 'pip install tensorflow'
 'pip install jupyter'
 
-Training Set: https://drive.google.com/drive/folders/1_crWOV6iA_ErSxn9dnu7D8tEvCuXCQem?usp=drive_link
-Testing Set: https://drive.google.com/drive/folders/1zAC7hz--bWvRoFfnVBC6Mw-R77inG0mm?usp=drive_link
-Trained Model: https://drive.google.com/drive/folders/1xeNrMxBwH4dD3PpjRR-wAZJyowwCCkR1?usp=drive_link
+Training Set: https://drive.google.com/drive/folders/1_crWOV6iA_ErSxn9dnu7D8tEvCuXCQem?usp=drive_link  
+Testing Set: https://drive.google.com/drive/folders/1zAC7hz--bWvRoFfnVBC6Mw-R77inG0mm?usp=drive_link  
+Trained Model: https://drive.google.com/drive/folders/1xeNrMxBwH4dD3PpjRR-wAZJyowwCCkR1?usp=drive_link  
 
 ## snapcook.py Dependencies
 'pip install google-generativeai'
